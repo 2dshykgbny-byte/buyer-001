@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>熱戀衝刺包 💗 數位情感工坊</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Nunito:wght@400;600;700;800&display=swap');
+
+  :root {
+    --pink-deep: #e91e8c;
+    --pink-hot: #ff4dac;
+    --pink-light: #ff85c2;
+    --pink-pale: #ffd6ec;
+    --pink-ultra: #fff0f8;
+    --gold: #ffd700;
+    --gold-soft: #ffe566;
+    --white: #ffffff;
+    --text-dark: #3d0026;
+    --text-mid: #7a1a4e;
+    --shadow-pink: rgba(233,30,140,0.35);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: linear-gradient(135deg, #ffe0f0 0%, #ffc2e0 25%, #ffaad4 50%, #ff85c2 75%, #ff5fb0 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: 
+      radial-gradient(circle at 20% 20%, rgba(255,77,172,0.3) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(233,30,140,0.25) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(255,213,230,0.2) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Floating hearts background */
+  .hearts-bg {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .heart-float {
+    position: absolute;
+    font-size: 20px;
+    opacity: 0.15;
+    animation: floatHeart linear infinite;
+  }
+  @keyframes floatHeart {
+    0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.15; }
+    90% { opacity: 0.15; }
+    100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+  }
+
+  .app-container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 480px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 16px 80px;
+  }
+
+  /* Header */
+  .header {
+    width: 100%;
+    text-align: center;
+    padding: 28px 0 16px;
+  }
+  .header-emoji { font-size: 2.5rem; display: block; margin-bottom: 6px; animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    text-shadow: 0 2px 8px rgba(233,30,140,0.3);
+    letter-spacing: 1px;
+  }
+  .header .subtitle {
+    font-size: 0.85rem;
+    color: var(--text-mid);
+    margin-top: 4px;
+    font-weight: 600;
+  }
+
+  /* Progress */
+  .progress-bar-wrap {
+    width: 100%;
+    background: rgba(255,255,255,0.5);
+    border-radius: 20px;
+    height: 10px;
+    margin: 12px 0 6px;
+    overflow: hidden;
+    box-shadow: inset 0 2px 4px rgba(233,30,140,0.15);
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--pink-deep), var(--gold));
+    border-radius: 20px;
+    transition: width 0.5s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .progress-bar-fill::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+    animation: shimmer 2s infinite;
+  }
+  @keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+  .progress-text { font-size: 0.8rem; color: var(--text-mid); font-weight: 700; text-align: center; }
+
+  /* Card deck area */
+  .deck-area {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+    gap: 24px;
+  }
+
+  .deck-stack {
+    position: relative;
+    width: 260px;
+    height: 160px;
+  }
+  .deck-stack .stack-card {
+    position: absolute;
+    width: 260px;
+    height: 155px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, var(--pink-deep), var(--pink-hot));
+    box-shadow: 0 8px 25px var(--shadow-pink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+  }
+  .deck-stack .stack-card:nth-child(3) { transform: rotate(-3deg) translateY(6px); opacity: 0.7; }
+  .deck-stack .stack-card:nth-child(2) { transform: rotate(-1.5deg) translateY(3px); opacity: 0.85; }
+  .deck-stack .stack-card:nth-child(1) { transform: rotate(0deg); }
+  .deck-stack:hover .stack-card:nth-child(1) { transform: rotate(0deg) translateY(-4px); box-shadow: 0 16px 35px var(--shadow-pink); }
+  .deck-label {
+    background: linear-gradient(135deg, var(--pink-deep), var(--pink-hot));
+    color: black;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 28px;
+    font-size: 1.05rem;
+    font-weight: 800;
+    font-family: 'Nunito', sans-serif;
+    letter-spacing: 1px;
+    box-shadow: 0 6px 20px var(--shadow-pink);
+    pointer-events: none;
+    position: relative;
+    overflow: hidden;
+    transition: opacity 0.4s ease;
+    white-space: nowrap;
+  }
+  .deck-label::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+    border-radius: 50px;
+  }
+  .deck-label.hidden { opacity: 0; pointer-events: none; }
+  .deck-count-badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: var(--gold);
+    color: var(--text-dark);
+    font-size: 0.8rem;
+    font-weight: 800;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    z-index: 2;
+    transition: top 0.6s cubic-bezier(0.34,1.56,0.64,1),
+                right 0.6s cubic-bezier(0.34,1.56,0.64,1),
+                width 0.5s ease, height 0.5s ease,
+                font-size 0.5s ease;
+  }
+  .deck-count-badge.centered {
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    width: 52px;
+    height: 52px;
+    font-size: 1.15rem;
+  }
+
+  .draw-btn {
+    background: linear-gradient(135deg, var(--pink-deep), var(--pink-hot));
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 16px 48px;
+    font-size: 1.1rem;
+    font-weight: 800;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    box-shadow: 0 8px 24px var(--shadow-pink);
+    transition: all 0.2s;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+  }
+  .draw-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+    border-radius: 50px;
+  }
+  .draw-btn:hover { transform: translateY(-3px); box-shadow: 0 14px 32px var(--shadow-pink); }
+  .draw-btn:active { transform: translateY(0px); }
+  .draw-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  .reset-btn {
+    background: transparent;
+    color: var(--text-mid);
+    border: 2px solid var(--pink-light);
+    border-radius: 50px;
+    padding: 10px 28px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .reset-btn:hover { background: var(--pink-pale); }
+
+  /* Card flip container */
+  .card-display {
+    width: 100%;
+    perspective: 1200px;
+    margin: 8px 0;
+  }
+
+  .card-inner {
+    width: 100%;
+    min-height: 200px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .card-inner.flipped { transform: rotateY(180deg); }
+
+  .card-face {
+    position: absolute;
+    width: 100%;
+    min-height: 200px;
+    border-radius: 24px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 28px 24px;
+  }
+
+  .card-front {
+    background: linear-gradient(135deg, var(--pink-deep) 0%, #c2006e 100%);
+    box-shadow: 0 12px 40px var(--shadow-pink);
+  }
+  .card-front-content {
+    text-align: center;
+    color: rgba(255,255,255,0.8);
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+  .card-front-heart {
+    font-size: 3.5rem;
+    display: block;
+    margin-bottom: 8px;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+  }
+
+  .card-back {
+    transform: rotateY(180deg);
+    box-shadow: 0 12px 40px var(--shadow-pink);
+  }
+  .card-back.type-dialogue {
+    background: linear-gradient(135deg, #fff0f8, #ffd6ec);
+    border: 3px solid var(--pink-light);
+  }
+  .card-back.type-action {
+    background: linear-gradient(135deg, #fff8e0, #ffd700);
+    border: 3px solid var(--gold);
+  }
+
+  /* Heart emboss decoration */
+  .card-back::before {
+    content: '♥';
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    font-size: 1.4rem;
+    opacity: 0.15;
+    color: var(--pink-deep);
+  }
+  .card-back.type-action::before { color: #b8860b; }
+
+  .card-back-content { width: 100%; }
+  .card-type-badge {
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+  .badge-dialogue { background: var(--pink-deep); color: white; }
+  .badge-action { background: var(--gold); color: var(--text-dark); }
+
+  .card-number { font-size: 0.75rem; color: var(--text-mid); font-weight: 600; margin-bottom: 6px; opacity: 0.7; }
+
+  .card-text-zh {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+  .card-text-ms {
+    font-size: 0.88rem;
+    color: var(--text-mid);
+    line-height: 1.45;
+    font-style: italic;
+    margin-bottom: 6px;
+  }
+  .card-text-en {
+    font-size: 0.82rem;
+    color: #b04070;
+    line-height: 1.4;
+    font-weight: 600;
+  }
+
+  .card-hearts-deco {
+    text-align: center;
+    margin-top: 14px;
+    letter-spacing: 6px;
+    font-size: 0.9rem;
+    opacity: 0.5;
+  }
+  .type-action .card-hearts-deco { color: #b8860b; }
+  .type-dialogue .card-hearts-deco { color: var(--pink-deep); }
+
+  /* Empty state */
+  .empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-mid);
+  }
+  .empty-state .big-emoji { font-size: 3rem; display: block; margin-bottom: 12px; }
+  .empty-state p { font-size: 1rem; font-weight: 700; line-height: 1.6; }
+
+  /* Footer */
+  .footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(12px);
+    text-align: center;
+    padding: 10px 16px;
+    font-size: 0.7rem;
+    color: var(--text-mid);
+    font-weight: 600;
+    border-top: 1px solid rgba(233,30,140,0.15);
+    z-index: 100;
+  }
+
+  /* Modal */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(60,0,35,0.6);
+    backdrop-filter: blur(6px);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    animation: fadeIn 0.3s ease;
+  }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .modal-box {
+    background: white;
+    border-radius: 28px;
+    padding: 32px 24px 28px;
+    width: 100%;
+    max-width: 380px;
+    box-shadow: 0 24px 60px rgba(233,30,140,0.3);
+    animation: slideUp 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+  @keyframes slideUp { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  .modal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--pink-deep);
+    text-align: center;
+    margin-bottom: 6px;
+  }
+  .modal-subtitle { text-align: center; font-size: 0.85rem; color: var(--text-mid); margin-bottom: 20px; }
+  .modal-step {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 16px;
+    align-items: flex-start;
+  }
+  .step-num {
+    min-width: 28px;
+    height: 28px;
+    background: linear-gradient(135deg, var(--pink-deep), var(--pink-hot));
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 800;
+    margin-top: 2px;
+  }
+  .step-text { font-size: 0.9rem; color: var(--text-dark); line-height: 1.5; font-weight: 600; }
+  .step-text strong { color: var(--pink-deep); }
+
+  .card-legend {
+    background: var(--pink-ultra);
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin: 16px 0;
+  }
+  .legend-item { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 0.85rem; font-weight: 600; color: var(--text-dark); }
+  .legend-item:last-child { margin-bottom: 0; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+  .dot-pink { background: var(--pink-deep); }
+  .dot-gold { background: var(--gold); }
+
+  .modal-btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--pink-deep), var(--pink-hot));
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 16px;
+    font-size: 1rem;
+    font-weight: 800;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    margin-top: 8px;
+    box-shadow: 0 8px 20px var(--shadow-pink);
+    letter-spacing: 1px;
+  }
+
+  /* Save badge */
+  .save-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(233,30,140,0.1);
+    border: 1px solid rgba(233,30,140,0.25);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 0.72rem;
+    color: var(--pink-deep);
+    font-weight: 700;
+    margin: 6px 0 0;
+    letter-spacing: 0.5px;
+  }
+  .save-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--pink-deep); animation: blink 2s infinite; flex-shrink: 0; }
+  @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255,255,255,0.92);
+    border: 1px solid rgba(233,30,140,0.35);
+    color: var(--pink-deep);
+    padding: 10px 22px;
+    border-radius: 30px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    z-index: 300;
+    backdrop-filter: blur(8px);
+    white-space: nowrap;
+    box-shadow: 0 4px 20px rgba(233,30,140,0.2);
+    animation: toastIn 0.4s ease, toastOut 0.4s ease 2.5s forwards;
+    pointer-events: none;
+  }
+  @keyframes toastIn { from { opacity: 0; transform: translateX(-50%) translateY(-10px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+  @keyframes toastOut { from { opacity: 1; } to { opacity: 0; } }
+
+  /* Draw animation */
+  @keyframes drawCard {
+    0% { transform: translateY(-30px) scale(0.9); opacity: 0; }
+    60% { transform: translateY(4px) scale(1.02); opacity: 1; }
+    100% { transform: translateY(0) scale(1); opacity: 1; }
+  }
+  .card-animate { animation: drawCard 0.5s cubic-bezier(0.34,1.56,0.64,1); }
+  /* Password Screen */
+  .pw-overlay {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #ffe0f0 0%, #ffc2e0 40%, #ff85c2 100%);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    transition: opacity 0.6s ease;
+  }
+  .pw-overlay.unlocking {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .pw-box {
+    background: white;
+    border-radius: 28px;
+    padding: 36px 28px 30px;
+    width: 100%;
+    max-width: 360px;
+    box-shadow: 0 24px 60px rgba(233,30,140,0.25);
+    text-align: center;
+    animation: slideUp 0.5s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .pw-icon { font-size: 3rem; display: block; margin-bottom: 12px; }
+  .pw-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--pink-deep);
+    margin-bottom: 4px;
+  }
+  .pw-subtitle { font-size: 0.82rem; color: var(--text-mid); margin-bottom: 24px; line-height: 1.5; }
+  .pw-input {
+    width: 100%;
+    border: 2px solid var(--pink-pale);
+    border-radius: 50px;
+    padding: 14px 20px;
+    font-size: 1.1rem;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    color: var(--text-dark);
+    text-align: center;
+    outline: none;
+    transition: border-color 0.2s;
+    letter-spacing: 3px;
+    margin-bottom: 14px;
+  }
+  .pw-input:focus { border-color: var(--pink-deep); }
+  .pw-input.error { border-color: #e53935; animation: shake 0.4s ease; }
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    20% { transform: translateX(-8px); }
+    40% { transform: translateX(8px); }
+    60% { transform: translateX(-6px); }
+    80% { transform: translateX(6px); }
+  }
+  .pw-btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--pink-deep), var(--pink-hot));
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 15px;
+    font-size: 1rem;
+    font-weight: 800;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    box-shadow: 0 8px 20px var(--shadow-pink);
+    letter-spacing: 1px;
+    transition: transform 0.2s;
+  }
+  .pw-btn:hover { transform: translateY(-2px); }
+  .pw-error { font-size: 0.82rem; color: #e53935; font-weight: 700; margin-top: 10px; min-height: 20px; }
+  .pw-footer { font-size: 0.7rem; color: var(--text-mid); margin-top: 20px; opacity: 0.6; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     PASSWORD SCREEN
+     To set a buyer's password:
+     1. Open password-generator.html
+     2. Type the password → copy the hash
+     3. Replace the HASH value below
+     ══════════════════════════════════════ -->
+<div class="pw-overlay" id="pwOverlay">
+  <div class="pw-box">
+    <span class="pw-icon">💗</span>
+    <div class="pw-title">熱戀衝刺包</div>
+    <div class="pw-subtitle">請輸入您的專屬密碼<br><em>Sila masukkan kata laluan anda</em><br><em>Enter your personal password</em></div>
+    <input class="pw-input" id="pwInput" type="password" placeholder="● ● ● ● ● ●" maxlength="30" autocomplete="off">
+    <button class="pw-btn" id="pwBtn">✨ 解鎖 / Unlock</button>
+    <div class="pw-error" id="pwError"></div>
+    <div class="pw-footer">© 2026 數位情感工坊 | 此檔案僅供本人使用</div>
+  </div>
+</div>
+
+<div class="hearts-bg" id="heartsBg"></div>
+
+<div class="app-container">
+  <div class="header">
+    <span class="header-emoji">💗</span>
+    <h1>熱戀衝刺包</h1>
+    <div class="subtitle">Hot Love Sprint Pack · Pek Cinta Bergelora</div>
+  </div>
+
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-fill" id="progressFill" style="width:0%"></div>
+  </div>
+  <div class="progress-text" id="progressText">尚未抽卡 · Belum mula · Not started yet</div>
+  <div class="save-badge"><div class="save-dot"></div>進度自動保存 · Auto-saved · Disimpan Otomatis</div>
+
+  <div class="deck-area">
+    <div class="deck-stack" id="deckStack">
+      <div class="stack-card">
+        <div class="deck-label" id="deckLabel">♥ Click to draw</div>
+      </div>
+      <div class="stack-card"></div>
+      <div class="stack-card"></div>
+      <div class="deck-count-badge" id="deckCountBadge">100</div>
+    </div>
+
+    <button class="draw-btn" id="drawBtn" onclick="drawCard()">✨ 抽取下一張 / Draw Next</button>
+    <button class="reset-btn" onclick="resetGame()">🔄 重新洗牌 / Reset</button>
+  </div>
+
+  <div class="card-display" id="cardDisplay" style="display:none;">
+    <div class="card-inner" id="cardInner">
+      <div class="card-face card-front">
+        <div class="card-front-content">
+          <span class="card-front-heart">💗</span>
+          正在翻牌中...
+        </div>
+      </div>
+      <div class="card-face card-back" id="cardBack">
+        <div class="card-back-content" id="cardContent"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">© 2026 數位情感工坊 版權所有 | 聯繫專線：017-6882313</div>
+
+<!-- Reset Confirm Modal -->
+<div class="modal-overlay" id="resetModal" style="display:none;">
+  <div class="modal-box" style="text-align:center;">
+    <div style="font-size:2.2rem;margin-bottom:10px;">🔄</div>
+    <div class="modal-title" style="font-size:1.2rem;margin-bottom:8px;">確定要重新洗牌嗎？</div>
+    <div class="modal-subtitle" style="margin-bottom:20px;">所有進度將被清除！<br><em>Semua kemajuan akan dipadam!</em><br><em>All progress will be cleared!</em></div>
+    <div style="display:flex;gap:12px;">
+      <button onclick="confirmReset(false)" style="flex:1;background:transparent;color:var(--text-mid);border:2px solid var(--pink-light);border-radius:50px;padding:13px;font-size:0.95rem;font-weight:700;font-family:'Nunito',sans-serif;cursor:pointer;">取消 / Cancel</button>
+      <button onclick="confirmReset(true)" style="flex:1;background:linear-gradient(135deg,var(--pink-deep),var(--pink-hot));color:white;border:none;border-radius:50px;padding:13px;font-size:0.95rem;font-weight:700;font-family:'Nunito',sans-serif;cursor:pointer;box-shadow:0 6px 16px var(--shadow-pink);">確定 / Yes</button>
+    </div>
+  </div>
+</div>
+
+<!-- Tutorial Modal -->
+<div class="modal-overlay" id="tutorialModal">
+  <div class="modal-box">
+    <div class="modal-title">💗 歡迎！Welcome!</div>
+    <div class="modal-subtitle">玩法說明 · Cara Bermain · How to Play</div>
+
+    <div class="modal-step">
+      <div class="step-num">1</div>
+      <div class="step-text">點擊牌堆或「<strong>抽取下一張</strong>」按鈕，隨機抽出一張卡牌。<br><em>Klik dek atau butang "Tarik Seterusnya" untuk ambil kad rawak.</em></div>
+    </div>
+    <div class="modal-step">
+      <div class="step-num">2</div>
+      <div class="step-text">卡牌翻開後，與你的另一半一起讀出內容，真誠地回答或執行！<br><em>Baca kad dengan pasangan dan jawab dengan ikhlas!</em></div>
+    </div>
+    <div class="modal-step">
+      <div class="step-num">3</div>
+      <div class="step-text">共 <strong>100 張</strong>卡牌，每次遊戲不重複，抽完可重置。<br><em>100 kad, tidak berulang. Boleh reset bila habis.</em></div>
+    </div>
+
+    <div class="card-legend">
+      <div class="legend-item"><div class="legend-dot dot-pink"></div>85 張「心跳對話卡」— 話題討論 / Topic Cards</div>
+      <div class="legend-item"><div class="legend-dot dot-gold"></div>15 張「甜蜜行動卡」— 立即執行！/ Action Cards (Do it now!)</div>
+    </div>
+
+    <button class="modal-btn" onclick="closeTutorial()">💕 開始遊戲！Let's Play!</button>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// CARD DATA — 100 cards (85 dialogue + 15 action)
+// Each card: { type: 'dialogue'|'action', zh, ms, en }
+// ============================================================
+const CARDS = [
+  // ---- DIALOGUE CARDS (85) ----
+  {type:'dialogue',zh:'你還記得第一次見到我時，心裡想的第一個念頭是什麼？',ms:'Apa yang pertama kali terlintas dalam fikiranmu bila pertama kali nampak aku?',en:'What was the very first thought that crossed your mind when you first saw me?'},
+  {type:'dialogue',zh:'你覺得我們第一次相遇的地方，有什麼特別讓你難忘的細節？',ms:'Apa detail yang membuatkan pertemuan pertama kita begitu berkesan untukmu?',en:'What detail from the place we first met stands out most vividly in your memory?'},
+  {type:'dialogue',zh:'你最喜歡我身上的哪三個地方，說說理由！',ms:'Apa tiga perkara yang paling kamu suka tentang aku? Cerita sebabnya!',en:'What are your three favorite things about me? Tell me why!'},
+  {type:'dialogue',zh:'哪一刻你突然確定，自己喜歡上我了？',ms:'Pada saat bila kamu tiba-tiba sedar bahawa kamu jatuh cinta dengan aku?',en:'At what exact moment did you suddenly realize you had fallen for me?'},
+  {type:'dialogue',zh:'如果要用一首歌來形容我們的相遇，你會選哪首？為什麼？',ms:'Kalau perlu pilih satu lagu untuk menggambarkan pertemuan kita, lagu apa?',en:'If you had to pick one song to describe how we met, which would it be and why?'},
+  {type:'dialogue',zh:'你覺得我身上最讓你心動的笑容或表情是哪一個？',ms:'Senyuman atau ekspresi apa daripadaku yang paling buat hati kamu berdegup?',en:'Which smile or expression of mine makes your heart beat the fastest?'},
+  {type:'dialogue',zh:'你有沒有偷偷研究過我的社交媒體？找到了什麼有趣的？',ms:'Pernahkah kamu diam-diam menyelidik media sosial aku? Apa yang kamu jumpa?',en:'Have you ever secretly looked through my social media? What interesting things did you find?'},
+  {type:'dialogue',zh:'在我們認識之前，你心目中理想伴侶的樣子是什麼？我符合嗎？',ms:'Sebelum kita kenal, macam mana rupa pasangan idaman kamu? Adakah aku sepadan?',en:'Before we met, what did your ideal partner look like? Do I match that picture?'},
+  {type:'dialogue',zh:'如果可以重播我們相識的那一天，你希望改變什麼？或是什麼都不想改？',ms:'Kalau boleh putar balik hari kita berkenalan, apa yang mahu kamu ubah?',en:'If you could replay the day we met, would you change anything at all?'},
+  {type:'dialogue',zh:'你第一次叫我的名字時，心裡有什麼感覺？',ms:'Bagaimana perasaanmu ketika pertama kali memanggil namaku?',en:'What did it feel like the very first time you called my name?'},
+  {type:'dialogue',zh:'我的哪一個小習慣讓你覺得超級可愛？',ms:'Tabiat kecil aku yang mana satu yang kamu rasa sangat comel?',en:'Which little habit of mine do you find absolutely adorable?'},
+  {type:'dialogue',zh:'你覺得我們之間最特別的默契是什麼？',ms:'Apa persefahaman yang paling unik antara kita berdua?',en:'What is the most unique unspoken understanding we share?'},
+  {type:'dialogue',zh:'和我在一起時，哪個瞬間讓你感覺最幸福？',ms:'Masa bila kamu rasa paling bahagia ketika bersama aku?',en:'Which moment with me makes you feel the most deeply happy?'},
+  {type:'dialogue',zh:'如果要為我寫一句專屬的情話，你會怎麼寫？',ms:'Kalau perlu tulis satu ayat cinta khas untukku, apa yang kamu tulis?',en:'If you had to write me one unique love line, what would it say?'},
+  {type:'dialogue',zh:'你覺得我最讓你驚喜的一面是什麼？',ms:'Apa sisi aku yang paling mengejutkan dan mengkagumkan kamu?',en:'What is the most surprising side of me that has ever caught you off guard?'},
+  {type:'dialogue',zh:'如果可以帶我去世界上任何一個地方約會，你會選哪裡？為什麼？',ms:'Kalau boleh bawa aku date di mana-mana tempat di dunia, kamu pilih mana?',en:'If you could take me on a date anywhere in the world, where would you choose and why?'},
+  {type:'dialogue',zh:'你最喜歡我們一起做的哪件事？',ms:'Apa aktiviti yang paling kamu suka buat bersama aku?',en:'What is your absolute favorite activity to do together with me?'},
+  {type:'dialogue',zh:'你會用什麼顏色來形容我？理由是什麼？',ms:'Warna apa yang kamu akan gunakan untuk menggambarkan aku? Kenapa?',en:'If you had to describe me as a color, what would it be and why?'},
+  {type:'dialogue',zh:'你覺得我最美的時候是什麼時候？（不一定是外貌）',ms:'Pada masa bila kamu rasa aku paling cantik/kacak? (tak semestinya penampilan)',en:'When do you think I am most beautiful? (Not necessarily about looks)'},
+  {type:'dialogue',zh:'如果我是一道料理，你覺得我是什麼味道？為什麼？',ms:'Kalau aku adalah sebuah hidangan, rasa apa yang menggambarkan aku? Kenapa?',en:'If I were a dish, what flavor would I be and why?'},
+  {type:'dialogue',zh:'你有沒有在人群中悄悄找過我？那種感覺是什麼？',ms:'Pernahkah kamu diam-diam mencari aku dalam kalangan ramai orang? Rasa macam mana?',en:'Have you ever quietly searched for me in a crowd? What did that feel like?'},
+  {type:'dialogue',zh:'你覺得我對你最好的地方是什麼？',ms:'Apa yang terbaik yang aku lakukan untukmu menurutmu?',en:'What do you think is the best thing I do for you?'},
+  {type:'dialogue',zh:'你喜歡聽我說什麼類型的話？讚美、撒嬌還是認真的心裡話？',ms:'Kamu suka dengar aku bercakap macam mana? Pujian, manja, atau luahan hati?',en:'What type of words from me do you love most — compliments, sweet nothings, or deep heart talk?'},
+  {type:'dialogue',zh:'如果我們倆要一起挑戰一件從未做過的事，你會選什麼？',ms:'Kalau kita berdua perlu mencuba sesuatu yang belum pernah dilakukan, apa pilihanmu?',en:'If we had to try something completely new together, what would you pick?'},
+  {type:'dialogue',zh:'你覺得我有什麼潛力是你還想幫我挖掘的？',ms:'Apa potensi aku yang kamu rasa ingin kamu bantu gali lebih lanjut?',en:'What potential in me do you wish to help me discover and grow?'},
+  {type:'dialogue',zh:'你心目中最完美的周末是怎麼和我一起度過的？',ms:'Hujung minggu yang paling sempurna bersamaku dalam bayanganmu seperti apa?',en:'Describe your perfect weekend spent with me in your imagination.'},
+  {type:'dialogue',zh:'你在夢裡夢到過我嗎？夢到了什麼？',ms:'Pernahkah kamu bermimpi tentang aku? Apa isi mimpinya?',en:'Have you ever dreamed about me? What happened in the dream?'},
+  {type:'dialogue',zh:'和我在一起之後，你覺得自己有什麼改變？',ms:'Selepas bersama aku, apa perubahan yang kamu rasakan dalam dirimu?',en:'Since being with me, what changes have you noticed in yourself?'},
+  {type:'dialogue',zh:'如果要在我身上選一個最愛的小動作，你會選什麼？',ms:'Kalau perlu pilih satu tingkah lakuku yang paling kamu sayang, apa tu?',en:'If you had to choose one little gesture of mine that you love most, what would it be?'},
+  {type:'dialogue',zh:'你會怎麼向朋友形容我這個人？',ms:'Macam mana kamu akan cerita tentang aku kepada kawan-kawanmu?',en:'How would you describe me to your friends?'},
+  {type:'dialogue',zh:'你覺得我們倆最互補的地方是什麼？',ms:'Apa aspek yang paling saling melengkapi antara kita berdua?',en:'In what way do you feel we complement each other the most?'},
+  {type:'dialogue',zh:'你最欣賞我面對困難時展現的哪一面？',ms:'Apa sisi aku ketika menghadapi kesukaran yang paling kamu kagumi?',en:'Which side of me that shows during difficult times do you admire most?'},
+  {type:'dialogue',zh:'如果可以把我變成任何一種動物，你覺得哪種最合適？為什麼？',ms:'Kalau boleh tukarkan aku jadi haiwan apa, yang mana paling sesuai? Kenapa?',en:'If you could turn me into any animal, which would fit me best and why?'},
+  {type:'dialogue',zh:'你覺得我們之間最甜蜜的一個回憶是什麼？',ms:'Apa kenangan paling manis antara kita yang terlintas dalam fikiranmu?',en:'What is the sweetest memory we share that comes to mind right now?'},
+  {type:'dialogue',zh:'在你心裡，我是什麼樣的存在？朋友？知己？還是更多？',ms:'Dalam hatimu, aku ini macam apa? Kawan? Teman rapat? Atau lebih?',en:'What am I to you at the deepest level — a friend, a soulmate, or something more?'},
+  {type:'dialogue',zh:'你有沒有一直想告訴我但還沒說出口的話？',ms:'Ada tak sesuatu yang sentiasa ingin kamu beritahu aku tapi belum terucap?',en:'Is there something you have always wanted to tell me but never quite said?'},
+  {type:'dialogue',zh:'如果我突然消失一個星期，你會最想我什麼？',ms:'Kalau aku tiba-tiba hilang selama seminggu, apa yang paling kamu akan rindukan?',en:'If I disappeared for a week, what would you miss about me the most?'},
+  {type:'dialogue',zh:'你覺得愛一個人最難的部分是什麼？你在我身上感受到了嗎？',ms:'Apa yang paling susah tentang mencintai seseorang? Adakah kamu rasa itu bersamaku?',en:'What is the hardest part of loving someone? Have you experienced that with me?'},
+  {type:'dialogue',zh:'你有沒有為了讓我開心做過一件讓自己很緊張的事？',ms:'Pernahkah kamu buat sesuatu yang buat kamu gementar semata-mata nak buat aku gembira?',en:'Have you ever done something nervously just to make me smile?'},
+  {type:'dialogue',zh:'如果只能用一個詞來形容現在的你對我的感覺，是什麼詞？',ms:'Kalau perlu guna satu perkataan sahaja untuk menggambarkan perasaanmu terhadap aku sekarang?',en:'If you had to sum up your feelings for me right now in just one word, what would it be?'},
+  {type:'dialogue',zh:'你最喜歡我們相處時的哪種氛圍？安靜、笑鬧還是深夜聊天？',ms:'Suasana apa yang paling kamu suka ketika bersama aku? Senyap, riuh, atau borak malam?',en:'Which atmosphere do you love most between us — quiet, playful, or late-night deep talks?'},
+  {type:'dialogue',zh:'你覺得我身上有沒有一種讓你感到特別安心的氣質？是什麼？',ms:'Ada tak aura atau sifat aku yang buat kamu rasa sangat tenang dan selamat?',en:'Is there a particular quality in me that makes you feel genuinely safe and at ease?'},
+  {type:'dialogue',zh:'你有沒有因為我說的一句話，在某個夜裡笑著睡著？是哪句話？',ms:'Ada tak perkataan aku yang pernah buat kamu tersenyum sehingga tertidur pada suatu malam?',en:'Has something I said ever made you fall asleep smiling? What was it?'},
+  {type:'dialogue',zh:'你覺得在愛情裡，我最需要被欣賞的地方是什麼？',ms:'Dalam cinta, apa yang kamu rasa aku paling perlu dihargai?',en:'In love, what aspect of me do you feel deserves the most appreciation?'},
+  {type:'dialogue',zh:'如果要用一個季節來比喻我們現在的感情，你覺得是哪個季節？',ms:'Kalau perlu ibaratkan hubungan kita sekarang dengan satu musim, apa pilihanmu?',en:'If you had to compare our relationship right now to a season, which would it be?'},
+  {type:'dialogue',zh:'你覺得我最讓你感動的一個舉動是什麼？',ms:'Apa tindakan aku yang paling menyentuh hatimu?',en:'What is the one action of mine that has moved you the most?'},
+  {type:'dialogue',zh:'在認識我之前，你有沒有遇到過讓你有類似感覺的人？有什麼不同？',ms:'Sebelum kenal aku, adakah kamu pernah rasa begini dengan orang lain? Apa bezanya?',en:'Before me, did you ever feel something similar with anyone else? How is it different?'},
+  {type:'dialogue',zh:'如果我們可以一起寫一本書，你覺得故事應該怎麼開始？',ms:'Kalau kita boleh tulis sebuah buku bersama, bagaimana kamu akan mulakan ceritanya?',en:'If we could write a book together, how would you want the story to begin?'},
+  {type:'dialogue',zh:'你覺得我哪一個眼神最讓你印象深刻？',ms:'Pandangan mata aku yang mana paling membekas dalam hatimu?',en:'Which look in my eyes has left the deepest impression on you?'},
+  {type:'dialogue',zh:'你有沒有因為喜歡我而改變了什麼生活習慣？',ms:'Adakah kamu mengubah sebarang tabiat hidup kerana menyukai aku?',en:'Have you changed any of your habits because of your feelings for me?'},
+  {type:'dialogue',zh:'你喜歡我打扮成什麼風格的樣子？為什麼？',ms:'Gaya berpakaian aku yang mana paling kamu suka? Kenapa?',en:'Which style of mine do you love the most when I dress up? Why?'},
+  {type:'dialogue',zh:'如果可以帶我回到你童年最美好的地方，那個地方是哪裡？',ms:'Kalau boleh bawa aku ke tempat terbaik zaman kecilmu, mana tempat itu?',en:'If you could take me to the most beautiful place from your childhood, where would it be?'},
+  {type:'dialogue',zh:'你覺得我們之間有沒有「只有你我才懂」的專屬笑點？是什麼？',ms:'Ada tak benda lawak yang hanya kita berdua je faham? Apa tu?',en:'Do we have an inside joke that only the two of us understand? What is it?'},
+  {type:'dialogue',zh:'你有沒有特別希望我多稱讚你的某一個地方？',ms:'Ada tak bahagian dirimu yang kamu harap aku lebih banyak puji?',en:'Is there something about you that you wish I would compliment more often?'},
+  {type:'dialogue',zh:'你覺得在我們的感情中，你扮演的是什麼角色？',ms:'Apa peranan yang kamu rasa kamu mainkan dalam hubungan kita?',en:'What role do you feel you play in our relationship?'},
+  {type:'dialogue',zh:'如果我今天很累，你最想做什麼來讓我開心？',ms:'Kalau aku keletihan hari ini, apa yang paling ingin kamu buat untuk ceritakan aku?',en:'If I were exhausted today, what would you most want to do to cheer me up?'},
+  {type:'dialogue',zh:'你覺得我們哪一次的對話是你最喜歡的一次？',ms:'Perbualan yang mana antara kita yang paling kamu sayangi?',en:'Which conversation we have had do you remember most fondly?'},
+  {type:'dialogue',zh:'你有沒有想過，如果當時沒遇到我，現在的你是什麼樣的？',ms:'Pernahkah kamu terfikir, kalau tak jumpa aku dulu, macam mana hidupmu sekarang?',en:'Have you ever thought about what your life might look like if we had never met?'},
+  {type:'dialogue',zh:'你認為愛情中最重要的三個字，除了「我愛你」是什麼？',ms:'Apa tiga perkataan paling penting dalam cinta selain "Aku cinta kamu"?',en:'What are the three most important words in love, beyond "I love you"?'},
+  {type:'dialogue',zh:'你覺得我對你最體貼的一個細節是什麼？',ms:'Apa perhatian kecil dariku yang kamu rasa paling menyentuh hati?',en:'What small caring detail of mine do you find most thoughtful?'},
+  {type:'dialogue',zh:'如果要給我一個超能力，你希望我擁有什麼能力？為什麼？',ms:'Kalau boleh beri aku satu kuasa luar biasa, apa yang kamu pilih dan kenapa?',en:'If you could give me a superpower, what would you choose and why?'},
+  {type:'dialogue',zh:'你覺得我在你人生中出現的時機，是太早、太晚還是剛剛好？',ms:'Menurutmu, masa kemunculanku dalam hidupmu — terlalu awal, terlambat, atau tepat waktu?',en:'Do you think I came into your life too early, too late, or at exactly the right time?'},
+  {type:'dialogue',zh:'你有沒有注意到我在某個特定場景下特別迷人？是什麼場景？',ms:'Adakah kamu perasan ada masa tertentu yang aku kelihatan sangat menarik? Bila tu?',en:'Have you noticed a specific moment or setting where I seem especially captivating to you?'},
+  {type:'dialogue',zh:'如果我今晚做了一頓飯給你，你最希望是什麼料理？',ms:'Kalau aku masak makan malam untukmu malam ini, kamu paling berharap masakan apa?',en:'If I cooked dinner for you tonight, what would you most hope it would be?'},
+  {type:'dialogue',zh:'你會形容我們的吻是什麼感覺？（可以很詩意！）',ms:'Bagaimana kamu akan menggambarkan ciuman kita? (boleh jadi puitis!)',en:'How would you describe our kiss? (feel free to be poetic!)'},
+  {type:'dialogue',zh:'你覺得我哪個聲音最好聽？笑聲、講話還是哼歌？',ms:'Suara aku yang mana paling sedap didengar? Ketawa, bercakap atau berdendang?',en:'Which sound of mine do you love most — my laugh, my speaking voice, or my humming?'},
+  {type:'dialogue',zh:'如果我變成一種天氣，你覺得我是晴天、雨天還是彩虹後的天空？',ms:'Kalau aku jadi sejenis cuaca, kamu rasa aku lebih seperti cerah, hujan, atau langit selepas pelangi?',en:'If I were a type of weather, would I be sunny, rainy, or the sky after a rainbow?'},
+  {type:'dialogue',zh:'你有沒有偷偷保存過我的照片？你最喜歡哪一張？',ms:'Pernahkah kamu diam-diam simpan gambar aku? Yang mana paling kamu suka?',en:'Have you secretly saved a photo of me? Which one is your favorite?'},
+  {type:'dialogue',zh:'你覺得我今天比昨天更可愛了嗎？為什麼？',ms:'Adakah kamu rasa aku lebih comel hari ini berbanding semalam? Kenapa?',en:'Do you think I am cuter today than yesterday? Why or why not?'},
+  {type:'dialogue',zh:'你最喜歡聽我分享什麼類型的故事？',ms:'Jenis cerita aku yang mana paling kamu suka dengar?',en:'What type of story from me do you enjoy hearing the most?'},
+  {type:'dialogue',zh:'如果我們的愛情是一部電影，類型是什麼？有沒有驚喜結局？',ms:'Kalau cinta kita sebuah filem, apa genrenya? Ada kejutan di penghujungnya?',en:'If our love story were a movie, what genre would it be? Any surprise ending?'},
+  {type:'dialogue',zh:'你覺得我今天的心情怎麼樣？你是怎麼讀出來的？',ms:'Bagaimana menurutmu mood aku hari ini? Macam mana kamu tahu?',en:'What do you sense about my mood today and how did you figure that out?'},
+  {type:'dialogue',zh:'你最想對現在的我說一句什麼話？',ms:'Apa yang paling ingin kamu ucapkan kepadaku sekarang?',en:'What is the one thing you most want to say to me right at this moment?'},
+  {type:'dialogue',zh:'如果可以給我們的感情打一個分數，你會給幾分？扣分是因為什麼？',ms:'Kalau perlu beri markah untuk hubungan kita, berapa? Apa yang ditolak markah?',en:'If you had to score our relationship, what would it be? What caused any deductions?'},
+  {type:'dialogue',zh:'你有沒有因為我的某個笑話笑到停不了？是哪個？',ms:'Pernahkah lawak aku buat kamu ketawa tak terkawal? Lawak apa tu?',en:'Has any joke I made ever made you laugh uncontrollably? Which one?'},
+  {type:'dialogue',zh:'你覺得我們相處最輕鬆的時候是什麼狀態？',ms:'Keadaan bila kamu rasa paling selesa ketika bersama aku?',en:'In which setting or state do you feel the most relaxed when you are with me?'},
+  {type:'dialogue',zh:'你有沒有一個只想和我分享、不想告訴任何人的秘密？',ms:'Ada tak rahsia yang hanya ingin kamu kongsikan dengan aku sahaja?',en:'Do you have a secret you would only ever want to share with me and no one else?'},
+  {type:'dialogue',zh:'你覺得我們倆誰比較容易害羞？為什麼？',ms:'Siapa antara kita yang lebih mudah tersipu? Kenapa?',en:'Who do you think is more easily flustered between us? Why?'},
+  {type:'dialogue',zh:'你最希望我了解你的哪一面？',ms:'Sisi mana dari dirimu yang paling kamu harap aku faham?',en:'Which side of yourself do you most wish I understood better?'},
+  {type:'dialogue',zh:'如果我們倆的故事有一個主題曲，歌名叫什麼？',ms:'Kalau kisah kita ada lagu tema, apa judulnya?',en:'If our story had a theme song, what would the title be?'},
+  {type:'dialogue',zh:'你有沒有一個專門為我設的「緊急聯絡人」位置？我是你的第幾個選擇？',ms:'Ada tak tempat "hubungi kecemasan" khas untukku? Aku nombor berapa pilihan kamu?',en:'Do you have a special spot for me in your emergency contacts? What number am I?'},
+  {type:'dialogue',zh:'你覺得我對你說過的最讓你感動的一句話是什麼？',ms:'Apa ayat yang pernah aku ucapkan yang paling menyentuh hatimu?',en:'What is the most touching thing I have ever said to you?'},
+  {type:'dialogue',zh:'如果我們明天要一起計劃一個驚喜，你最想製造什麼驚喜？',ms:'Kalau kita rancang satu kejutan bersama esok, kejutan apa yang kamu paling ingin buat?',en:'If we were to plan a surprise together tomorrow, what surprise would you most want to create?'},
+  {type:'dialogue',zh:'你覺得在愛情裡，哪些小事反而比大事更重要？',ms:'Dalam cinta, perkara kecil mana yang kamu rasa lebih penting daripada perkara besar?',en:'In love, which small gestures do you think matter more than the grand ones?'},
+
+  {type:'dialogue',zh:'如果我們的愛情是一種香氣，你覺得它聞起來像什麼？為什麼？',ms:'Kalau cinta kita adalah sejenis wangian, kamu rasa ia berbau seperti apa? Kenapa?',en:'If our love were a scent, what would it smell like and why?'},
+
+  // ---- ACTION CARDS (15) ----
+  {type:'action',zh:'💕 現在，用你最深情的眼神看對方 10 秒鐘，不能笑！',ms:'💕 Sekarang, tatap pasanganmu dengan penuh kasih selama 10 saat — jangan ketawa!',en:'💕 Right now, gaze into your partner\'s eyes with pure love for 10 seconds — no laughing allowed!'},
+  {type:'action',zh:'🫂 給對方一個至少 20 秒的擁抱，感受彼此的心跳！',ms:'🫂 Peluk pasanganmu selama sekurang-kurangnya 20 saat dan rasai degupan jantung masing-masing!',en:'🫂 Give your partner a hug lasting at least 20 seconds and feel each other\'s heartbeats!'},
+  {type:'action',zh:'✍️ 在手機備忘錄上寫下對方今天讓你最感動的一件事，並唸出來！',ms:'✍️ Tulis satu perkara yang paling menyentuh hatimu tentang pasangan hari ini dan bacakan!',en:'✍️ Write down the one thing your partner did today that touched you most, then read it aloud!'},
+  {type:'action',zh:'📸 兩個人現在馬上自拍一張，設為對方的手機桌布！',ms:'📸 Selfie berdua sekarang juga dan jadikan ia wallpaper telefon masing-masing!',en:'📸 Take a selfie together right now and set it as each other\'s phone wallpaper!'},
+  {type:'action',zh:'🎤 用歌聲哼出一段讓你想到對方的旋律，讓另一半猜是什麼歌！',ms:'🎤 Dendangkan melodi yang mengingatkanmu tentang pasangan, biarkan dia teka lagu apa!',en:'🎤 Hum a melody that reminds you of your partner and let them guess the song!'},
+  {type:'action',zh:'💌 立刻發一條語音或文字訊息給對方，說出一句你平時不敢說的情話！',ms:'💌 Hantar mesej suara atau teks kepada pasangan sekarang dengan ucapan cinta yang biasanya malu kamu ucapkan!',en:'💌 Send your partner a voice or text message right now saying one romantic thing you\'re usually too shy to say!'},
+  {type:'action',zh:'🌹 用手比劃出你心目中對方有多高分，然後解釋你的評分標準！',ms:'🌹 Tunjukkan dengan tangan berapa markah pasanganmu dalam fikiranmu dan jelaskan kriterianya!',en:'🌹 Use your hands to show how high you\'d score your partner then explain your rating criteria!'},
+  {type:'action',zh:'🌙 告訴對方：「你知道嗎，今天你最讓我心動的是⋯⋯」，用兩分鐘說完！',ms:'🌙 Beritahu pasangan: "Tahukah kamu, hari ini hal yang paling buat hatiku berdegup adalah..." — habiskan dalam dua minit!',en:'🌙 Tell your partner: "Do you know that the thing that made my heart flutter today was..." — finish it in two minutes!'},
+  {type:'action',zh:'🎁 從現在起，接下來的 10 分鐘，兩個人只能用暱稱或甜蜜稱呼對話！',ms:'🎁 Mulai sekarang, dalam 10 minit seterusnya, bercakap hanya menggunakan panggilan manja!',en:'🎁 For the next 10 minutes, you may only address each other with sweet nicknames — no real names!'},
+  {type:'action',zh:'🔮 閉上眼睛，讓對方猜猜你現在最想要什麼？答對有獎！',ms:'🔮 Tutup mata, biarkan pasangan teka apa yang paling kamu inginkan sekarang — teka betul ada hadiah!',en:'🔮 Close your eyes and let your partner guess what you want most right now — a correct answer earns a reward!'},
+  {type:'action',zh:'🌟 互相交換手機一分鐘，找出對方最近保存的一張照片，說說你的感受！',ms:'🌟 Tukar telefon selama satu minit, cari gambar terbaru yang pasangan simpan dan cerita perasaanmu!',en:'🌟 Swap phones for one minute, find the most recently saved photo and share your feelings about it!'},
+  {type:'action',zh:'💋 用你的方式，給對方一個今天最真誠的「謝謝你」！',ms:'💋 Dengan caramu sendiri, ucapkan "terima kasih" yang paling ikhlas kepada pasangan hari ini!',en:'💋 In your own way, give your partner your most heartfelt "thank you" for today!'},
+  {type:'action',zh:'🎀 現在背對背坐好，同時說出腦海中第一個想到對方的詞語，比比看是否一樣！',ms:'🎀 Duduk belakang-belakang sekarang, serentak sebut perkataan pertama yang terlintas tentang pasangan — sama tak?',en:'🎀 Sit back to back now and simultaneously say the first word about your partner that comes to mind — do they match?'},
+  {type:'action',zh:'✨ 現在用手指，在對方的手心裡悄悄寫下一個秘密詞語，讓他猜！',ms:'✨ Sekarang, tulis satu perkataan rahsia di tapak tangan pasangan dengan jari — biarkan dia teka!',en:'✨ Right now, secretly write a word on your partner\'s palm with your finger — let them guess what it says!'},
+  {type:'action',zh:'🩷 兩個人各說出對方今天三個你注意到的美好細節，越具體越加分！',ms:'🩷 Masing-masing sebut tiga perincian indah tentang pasangan hari ini — semakin spesifik semakin bagus!',en:'🩷 Each of you name three beautiful details you noticed about your partner today — the more specific the better!'},
+];
+
+// ============================================================
+// PASSWORD PROTECTION
+// Replace BUYER_HASH below with the hash from password-generator.html
+// ============================================================
+const BUYER_HASH = 'a320480f534776bddb5cdb54b1e93d210a3c7d199e80a23c1b2178497b184c76';
+const PW_UNLOCKED_KEY = 'hotlove_unlocked_v1';
+
+async function sha256(message) {
+  const msgBuffer = new TextEncoder().encode(message);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function checkPassword() {
+  const input = document.getElementById('pwInput').value.trim();
+  const errorEl = document.getElementById('pwError');
+  const inputEl = document.getElementById('pwInput');
+  if (!input) return;
+
+  const hash = await sha256(input);
+  if (hash === BUYER_HASH) {
+    // Save unlock state so they don't need to re-enter every time
+    localStorage.setItem(PW_UNLOCKED_KEY, '1');
+    unlockGame();
+  } else {
+    errorEl.textContent = '密碼錯誤 · Kata laluan salah · Wrong password';
+    inputEl.classList.add('error');
+    setTimeout(() => {
+      inputEl.classList.remove('error');
+      errorEl.textContent = '';
+    }, 1500);
+  }
+}
+
+function unlockGame() {
+  const overlay = document.getElementById('pwOverlay');
+  overlay.classList.add('unlocking');
+  setTimeout(() => overlay.style.display = 'none', 600);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Check if already unlocked in this browser
+  if (localStorage.getItem(PW_UNLOCKED_KEY) === '1') {
+    document.getElementById('pwOverlay').style.display = 'none';
+  }
+
+  document.getElementById('pwBtn').addEventListener('click', checkPassword);
+  document.getElementById('pwInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') checkPassword();
+  });
+});
+
+// ============================================================
+const SAVE_KEY = 'hotlove_progress_v1';
+
+function saveProgress(drawnIds) {
+  try { localStorage.setItem(SAVE_KEY, JSON.stringify(drawnIds)); } catch(e) {}
+}
+
+function loadProgress() {
+  try {
+    const raw = localStorage.getItem(SAVE_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch(e) { return []; }
+}
+
+function showToast(msg) {
+  const existing = document.querySelector('.toast');
+  if (existing) existing.remove();
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 3000);
+}
+
+// ============================================================
+// GAME LOGIC
+// ============================================================
+let deck = [];
+let drawnCardIds = [];
+let isFlipping = false;
+
+function initDeck(savedIds) {
+  const usedSet = new Set(savedIds);
+  deck = CARDS
+    .map((c, i) => ({...c, id: i}))
+    .filter(c => !usedSet.has(c.id));
+  shuffleDeck();
+  drawnCardIds = [...savedIds];
+}
+
+function shuffleDeck() {
+  for (let i = deck.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [deck[i], deck[j]] = [deck[j], deck[i]];
+  }
+}
+
+function updateProgress() {
+  const drawn = drawnCardIds.length;
+  const total = CARDS.length;
+  const pct = (drawn / total) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('deckCountBadge').textContent = deck.length;
+  if (drawn === 0) {
+    document.getElementById('progressText').textContent = '尚未抽卡 · Belum mula · Not started yet';
+  } else {
+    document.getElementById('progressText').textContent = `已抽 ${drawn} / ${total} 張 · Kad ${drawn}/${total} · Card ${drawn}/${total}`;
+  }
+  if (deck.length === 0) {
+    document.getElementById('drawBtn').disabled = true;
+    document.getElementById('deckStack').style.opacity = '0.4';
+  }
+}
+
+function drawCard() {
+  if (isFlipping || deck.length === 0) return;
+  isFlipping = true;
+
+  const card = deck.pop();
+  drawnCardIds.push(card.id);
+  saveProgress(drawnCardIds);
+
+  // Hide deck label and slide badge to center
+  const lbl = document.getElementById('deckLabel');
+  if (lbl) lbl.classList.add('hidden');
+  setTimeout(() => {
+    const badge = document.getElementById('deckCountBadge');
+    if (badge) badge.classList.add('centered');
+  }, 350);
+
+  const cardDisplay = document.getElementById('cardDisplay');
+  const cardInner = document.getElementById('cardInner');
+  const cardBack = document.getElementById('cardBack');
+  const cardContent = document.getElementById('cardContent');
+
+  // Reset flip instantly (disable transition first to avoid reverse-flip animation)
+  cardInner.style.transition = 'none';
+  cardInner.classList.remove('flipped');
+  cardBack.className = 'card-face card-back';
+  cardDisplay.style.display = 'block';
+  // Force reflow so browser registers the reset before re-enabling transition
+  void cardInner.offsetWidth;
+
+  // Build content
+  const typeLabel = card.type === 'action' ? '甜蜜行動卡 · Kad Aksi Manis · Sweet Action Card' : '心跳對話卡 · Kad Dialog · Heartbeat Dialogue';
+  const badgeClass = card.type === 'action' ? 'badge-action' : 'badge-dialogue';
+  const backClass = card.type === 'action' ? 'type-action' : 'type-dialogue';
+  const heartsDeco = card.type === 'action' ? '✦ ★ ✦' : '♥ · ♥ · ♥';
+
+  cardContent.innerHTML = `
+    <div class="card-type-badge ${badgeClass}">${typeLabel}</div>
+    <div class="card-number">No. ${drawnCardIds.length} / ${CARDS.length}</div>
+    <div class="card-text-zh">${card.zh}</div>
+    <div class="card-text-ms">${card.ms}</div>
+    <div class="card-text-en">${card.en}</div>
+    <div class="card-hearts-deco">${heartsDeco}</div>
+  `;
+  cardBack.classList.add(backClass);
+
+  // Animate
+  cardDisplay.classList.add('card-animate');
+  setTimeout(() => cardDisplay.classList.remove('card-animate'), 700);
+
+  // Flip after short delay — restore transition first
+  setTimeout(() => {
+    cardInner.style.transition = '';
+    cardInner.classList.add('flipped');
+    setTimeout(() => { isFlipping = false; }, 3000);
+  }, 200);
+
+  updateProgress();
+}
+
+function resetGame() {
+  document.getElementById('resetModal').style.display = 'flex';
+}
+
+function confirmReset(yes) {
+  document.getElementById('resetModal').style.display = 'none';
+  if (!yes) return;
+  localStorage.removeItem(SAVE_KEY);
+  deck = CARDS.map((c, i) => ({...c, id: i}));
+  shuffleDeck();
+  drawnCardIds = [];
+  isFlipping = false;
+  document.getElementById('cardDisplay').style.display = 'none';
+  document.getElementById('cardInner').classList.remove('flipped');
+  document.getElementById('drawBtn').disabled = false;
+  document.getElementById('deckStack').style.opacity = '1';
+  updateProgress();
+  showToast('💗 已重新洗牌！Game Reset!');
+  const lbl = document.getElementById('deckLabel');
+  if (lbl) lbl.classList.remove('hidden');
+  const badge = document.getElementById('deckCountBadge');
+  if (badge) badge.classList.remove('centered');
+}
+
+// Floating hearts
+function createHearts() {
+  const container = document.getElementById('heartsBg');
+  const hearts = ['♥','💗','💕','💓','💖','❤️','🩷'];
+  for (let i = 0; i < 18; i++) {
+    const el = document.createElement('span');
+    el.className = 'heart-float';
+    el.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+    el.style.left = Math.random() * 100 + '%';
+    el.style.fontSize = (12 + Math.random() * 18) + 'px';
+    el.style.animationDuration = (8 + Math.random() * 14) + 's';
+    el.style.animationDelay = (Math.random() * 15) + 's';
+    container.appendChild(el);
+  }
+}
+
+// Tutorial
+function closeTutorial() {
+  document.getElementById('tutorialModal').style.display = 'none';
+  localStorage.setItem('hotlove_tutorial_seen', '1');
+}
+
+// Init
+document.addEventListener('DOMContentLoaded', () => {
+  createHearts();
+  const saved = loadProgress();
+  initDeck(saved);
+  updateProgress();
+  if (saved.length > 0) {
+    showToast(`💗 已恢復進度：${saved.length} 張 · Progress restored: ${saved.length} cards`);
+    const lbl = document.getElementById('deckLabel');
+    if (lbl) lbl.classList.add('hidden');
+    const badge = document.getElementById('deckCountBadge');
+    if (badge) badge.classList.add('centered');
+  }
+  if (!localStorage.getItem('hotlove_tutorial_seen')) {
+    document.getElementById('tutorialModal').style.display = 'flex';
+  } else {
+    document.getElementById('tutorialModal').style.display = 'none';
+  }
+});
+</script>
+</body>
+</html>
